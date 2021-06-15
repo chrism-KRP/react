@@ -1,32 +1,51 @@
-import React from "react";
-import { PropTypes } from "prop-types";
+import { useState } from "react"
+function SearchBar(props) {
 
-class Info extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0,
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState(0);
+    const [type, setType] = useState("");
+    const [brand, setBrand] = useState("");
+
+    const searchButtonPressed = () => {
+        props.callback({name: name, price: price, type: type, brand: brand })
     };
-  }
-    buttonPressed() {
-        this.setState({
-            count: this.state.count + 1,
-        });
-    }
-  
-  render() {
-    return (
-      <div>
-          <p>Count: {this.state.count} </p>
-          <button onClick={() => this.buttonPressed()}>Click Me!</button>
-      </div>
-    );
-  }
+
+  return (
+    <div>
+      <h2> Search for an Item </h2>
+      <form>
+        <label htmlFor="name-field">Name</label>
+        <input 
+            id="name-field" 
+            type="text" 
+            value={name} 
+            onChange={ (e) => setName(e.target.value)}
+        />
+        <label htmlFor="price-field">Price</label>
+        <input 
+            id="price-field" 
+            type="number" 
+            value={price} 
+            onChange={ (e) => setPrice(e.target.value)}
+        />
+        <label htmlFor="type-field">Type</label>
+        <input 
+            id="type-field" 
+            type="text" 
+            value={type} 
+            onChange={ (e) => setType(e.target.value)}
+        />
+        <label htmlFor="brand-field">Brand</label>
+        <input 
+            id="brand-field" 
+            type="text" 
+            value={brand}
+            onChange={ (e) => setBrand(e.target.value)}
+        />
+        <button type="button" onClick={searchButtonPressed}>Search</button>
+      </form>
+    </div>
+  );
 }
 
-Info.defaultProps = {
-  number: 2,
-  text: "default",
-};
-
-export default Info;
+export default SearchBar;
